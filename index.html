@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title> Infinite Generative Weave with Pause and Red </title>
   <!-- Include p5.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
   <style>
-    body, html {
+    body,
+    html {
       margin: 0;
       padding: 0;
       overflow: hidden;
@@ -15,10 +17,12 @@
       background-position: center;
       background-repeat: no-repeat;
     }
+
     .p5Canvas {
       display: block;
       margin: 50px auto;
     }
+
     h1 {
       color: #fff;
       text-align: center;
@@ -27,8 +31,8 @@
     }
   </style>
 </head>
+
 <body>
-  <h1>Telares de la Abuela</h1>
   <!--  https://www.youtube.com/watch?v=kkFHLT-RbJ4  -->
 
   <script>
@@ -44,7 +48,7 @@
     function draw() {
       // If paused, do nothing.
       if (paused) return;
-      
+
       // When we've reached the bottom, shift the canvas upward.
       if (currentRow >= height) {
         // Shift the canvas upward by rowsPerFrame pixels.
@@ -56,7 +60,7 @@
         // Adjust the row counter for the cleared area.
         currentRow = height - rowsPerFrame;
       }
-      
+
       // Draw a few new rows every frame.
       for (let i = 0; i < rowsPerFrame; i++) {
         drawWeaveRow(currentRow);
@@ -68,10 +72,10 @@
     function drawWeaveRow(row) {
       let numRects = 10;                // Divide the row into 10 segments.
       let rectWidth = width / numRects;   // Width of each segment.
-      
+
       // Use HSL for vibrant colors.
       colorMode(HSL, 360, 100, 100);
-      
+
       for (let i = 0; i < numRects; i++) {
         // With a 20% chance, use red (HSL hue 0)
         if (random(1) < 0.25) {
@@ -105,4 +109,5 @@
     // }
   </script>
 </body>
+
 </html>
