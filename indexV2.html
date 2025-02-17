@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Weaving Simulation</title>
+  <!-- p5.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+  <style>
+    body, html {
+      margin: 0; 
+      padding: 0; 
+      overflow: hidden; 
+      background: #eee;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    let img1, img2;
+    let rowIndex = 0;      // Current row we’re "weaving"
+    let currentImage = 1;  // Which image we’re weaving from
+    let totalRowsNeeded = 0;
+
+    function preload() {
+      // Load your two images
+      img1 = loadImage('https://susanaegerter.com/wp-content/uploads/2025/02/image1.png');
+      img2 = loadImage('https://susanaegerter.com/wp-content/uploads/2025/02/image2.png');
+    }
+
+    function setup() {
+      createCanvas(windowWidth, windowHeight);
+      // We’ll base the canvas height on the total rows of both images combined
+      totalRowsNeeded = img1.height + img2.height;
+
+      // If you want to see everything, ensure your canvas can fit the combined height,
+      // or just fill the window and let it overflow. For simplicity, we’ll do:
+      resizeCanvas(img1.width, totalRowsNeeded);
+      background(220);
+    }
+
+    function draw() {
+      // If we still have rows to draw...
+      if (rowIndex < totalRowsNeeded) {
+        // Draw just ONE row each frame (to simulate weaving speed).
+        drawOneRow(rowIndex);
+
+        // Move to the next row
+        rowIndex++;
+      }
+      else {
+        // Once we’ve woven all rows, no more drawing is needed.
+        noLoop(); 
+      }
+    }
+
+    function drawOneRow(r) {
+  if (r < img1.height) {
+    console.log("Drawing row from Image 1:", r);
+    let rowPixels = img1.get(0, r, img1.width, 1); 
+    image(rowPixels, 0, r);
+  } else {
+    let r2 = r - img1.height; // Declare r2 first
+    console.log("Switching to Image 2 row:", r2);
+    if (r2 < img2.height) {
+      let rowPixels = img2.get(0, r2, img2.width, 1);
+      image(rowPixels, 0, r);
+    }
+  }
+}
+
+    
+
+    function windowResized() {
+      // Adjust the canvas if needed
+      resizeCanvas(img1.width, totalRowsNeeded);
+    }
+    
+  </script>
+</body>
+</html>
